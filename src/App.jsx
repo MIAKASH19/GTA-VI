@@ -1,37 +1,34 @@
 import React, { useState } from "react";
 import { useGSAP } from "@gsap/react";
-import gsap from "gsap"
+import gsap from "gsap";
 
 const App = () => {
-
   let [showContent, setShowContent] = useState(false);
 
-  useGSAP(()=>{
-    const tl = gsap.timeline()
+  useGSAP(() => {
+    const tl = gsap.timeline();
 
     tl.to(".vi-mask-group", {
       rotate: 20,
-      duration: 2, 
+      duration: 2,
       ease: "Power4.easeInOut",
-      transformOrigin : "50% 50%",
-    })
-    .to(".vi-mask-group", {
+      transformOrigin: "50% 50%",
+    }).to(".vi-mask-group", {
       scale: 20,
       duration: 2,
       delay: -1.8,
       ease: "Expo.easeInOut",
       transformOrigin: "50% 50%",
       opacity: 0,
-      onUpdate: function(){
-        if(this.progress() >= .9 ){
-          document.querySelector(".svg").remove()
+      onUpdate: function () {
+        if (this.progress() >= 0.9) {
+          document.querySelector(".svg").remove();
           setShowContent(true);
           this.kill();
         }
-      }
-    })
-
-  })
+      },
+    });
+  });
 
   return (
     <>
@@ -64,15 +61,32 @@ const App = () => {
           />
         </svg>
       </div>
-      <div className="main bg-black w-full h-full">
-        <h1>Hellow Akash</h1>
-        <div className="landing w-full h-screen bg-black">
-          <div className="imgagesdiv w-full h-screen">
-            <img src="./bg.png" className="w-full h-full object-cover" />
+      {showContent && (
+        <div className="main bg-black w-full h-full text-white overflow-x-hidden">
+          <div className="landing w-full h-screen bg-black">
+            <div className="navbar bg-red-500 fixed top-0 left-0 w-full h-10 z-[10]">
+              <div className="logo">
+                <h3 className="text-2xl">Rockstar</h3>
+              </div>
+            </div>
+            <div className="imgagesdiv relative w-full h-screen overflow-hidden">
+              <img
+                src="./sky.png"
+                className=" absolute top-0 left-0 w-full h-full object-cover"
+              />
+              <img
+                src="./bg.png"
+                className=" absolute top-0 left-0 w-full h-full object-cover"
+              />
+              <img
+                src="./girlbg.png"
+                className=" absolute   left-1/2 -translate-x-1/2 -bottom-[30%] scale-[1.25] w-full h-full object-contain"
+              />
+            </div>
           </div>
         </div>
-      </div>
-    </>
+      )}
+    </> 
   );
 };
 
