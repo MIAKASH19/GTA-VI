@@ -45,16 +45,16 @@ const App = () => {
         y: `${-yMove * 0.4}%`,
       });
       gsap.to(".girl", {
-        x: xMove * .5,
-        y: yMove * .5,
+        x: xMove * 0.5,
+        y: yMove * 0.5,
       });
       gsap.to(".sky", {
         x: xMove * 1.5,
         y: yMove * 1.5,
       });
       gsap.to(".bg", {
-        x: -xMove ,
-        y: -yMove ,
+        x: -xMove,
+        y: -yMove,
       });
     });
   }, [showContent]);
@@ -91,35 +91,35 @@ const App = () => {
         </svg>
       </div>
       {showContent && (
-        <div className="main bg-black w-full h-full text-white overflow-x-hidden">
-          <div className="landing w-full h-screen bg-black">
-            <div className="navbar  px-7 py-5 fixed top-0 left-0 w-full z-[10]">
-              <div className="logo flex items-center gap-4">
-                <div className="lines flex flex-col gap-[5px]">
-                  <div className="line w-10 h-[5px] bg-white"></div>
-                  <div className="line w-7 h-[5px] bg-white"></div>
-                  <div className="line w-5 h-[5px] bg-white"> </div>
+        <div className="main bg-black w-full h-full text-white overflow-hidden">
+          <div className="landing w-full h-[110vh] bg-black">
+            <div className="navbar px-5 sm:px-7 py-5 fixed top-0 left-0 w-full z-[10]">
+              <div className="logo  flex items-center gap-4">
+                <div className="lines flex flex-col sm:gap-[5px] gap-1">
+                  <div className="line w-10 h-[3px] sm:h-[5px] bg-white"></div>
+                  <div className="line w-7 h-[3px] sm:h-[5px] bg-white"></div>
+                  <div className="line w-5 h-[3px] sm:h-[5px] bg-white"> </div>
                 </div>
-                <h2 className="text-3xl -mt-3">Rockstar</h2>
+                <h2 className="sm:text-3xl text-lg sm:-mt-3 -mt-2">Rockstar</h2>
               </div>
             </div>
             <div className="imgagesdiv relative w-full h-screen overflow-hidden">
               <img
                 src="./sky.png"
-                className=" scale-[1.2] sky absolute top-0 left-0 w-full h-full object-cover"
+                className=" sm:scale-[1.2] sky absolute top-0 left-0 w-full h-full object-cover"
               />
               <img
                 src="./bg.png"
                 className=" scale-[1.2] bg absolute top-0 left-0 w-full h-full object-cover"
               />
               <div className=" text flex flex-col gap-3 absolute top-10 left-1/2 -translate-x-1/2 ">
-                <h1 className="text-8xl leading-none -ml-20">grand</h1>
-                <h1 className="text-8xl leading-none ml-20">theft</h1>
-                <h1 className="text-8xl leading-none -ml-10">auto</h1>
+                <h1 className="sm:text-8xl text-4xl leading-none -ml-10 sm:-ml-20">grand</h1>
+                <h1 className="sm:text-8xl text-4xl leading-none ml-10 sm:ml-20">theft</h1>
+                <h1 className="sm:text-8xl text-4xl leading-none -ml-10 sm:-ml-10">auto</h1>
               </div>
               <img
                 src="./girlbg.png"
-                className=" girl absolute left-1/2 -translate-x-1/2 -bottom-[35%] scale-[1.25] w-full h-full object-contain"
+                className=" girl absolute left-1/2 -translate-x-1/2 -bottom-[35%] scale-[.1] sm:scale-[1.25] w-full h-full object-contain"
               />
             </div>
             <div className="bottombar z-[4] flex items-baseline justify-center absolute bottom-0 py-15 left-0 w-full h-10 bg-gradient-to-t from-black to-transparent">
@@ -128,6 +128,35 @@ const App = () => {
                 <h3 className="font-[Manrope] text-zinc-200 ">Scroll down</h3>
               </div>
               <img src="./ps5.png" className="h-10 mb-3" />
+            </div>
+          </div>
+          <div className="about w-full h-screen flex items-center justify-between px-10">
+            <div className="limg w-1/2 ">
+              <img src="./public/imag.png" alt="Girl Image" />
+            </div>
+            <div className="rg w-1/2 ">
+              <h1 className="text-6xl ">Stil Running,</h1>
+              <h1 className="text-6xl ">Not Hunting</h1>
+              <p className="text-lg leading-none font-[Arial] font-medium tracking-tight mt-5 pr-20">
+                The game will feature a compelling narrative told through the
+                perspectives of a new criminal duo, Lucia and Jason. Expect a
+                satirical take on modern American culture, from social media
+                trends to influencer phenomena, all within the context of their
+                unfolding story.
+              </p>
+              <p className="text-lg leading-none font-[Arial] font-medium tracking-tight mt-5 pr-20">
+                Rockstar Games promises significant advancements in graphics,
+                physics, and AI, aiming to create an unprecedentedly realistic
+                and dynamic open world.{" "}
+              </p>
+              <p className="text-lg leading-none font-[Arial] font-medium tracking-tight my-5 pr-20">
+                With its sprawling map, diverse environments, and a wealth of
+                interactive opportunities, Grand Theft Auto VI is poised to
+                redefine the open-world genre once again.
+              </p>
+              <button className="px-8 py-3 bg-gradient-to-b text-xl cursor-pointer hover:bg-gradient-to-t from-[#D940A5] to-[#4962D3] hover:from-[#D940A5] hover:to-[#4962D3] duration-500">
+                Download Now
+              </button>
             </div>
           </div>
         </div>

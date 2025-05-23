@@ -4,9 +4,16 @@
     font-family: PriceDown;
     src: url(/public/pricedown.otf);
 }
+@font-face {
+    font-family: Brunson;
+    src: url(/public/Brunson\ Rough.ttf);
+}
 
 html, body{
     width: 100%;
     height:  100%;
     font-family: PriceDown;
+}
+.Brunson{
+    font-family: Brunson;
 }
