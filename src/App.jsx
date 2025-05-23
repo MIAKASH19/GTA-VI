@@ -1,34 +1,55 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import "remixicon/fonts/remixicon.css";
 
 const App = () => {
   let [showContent, setShowContent] = useState(false);
+  const [viewBox, setViewBox] = useState("0 0 400 600");
+
+  useEffect(() => {
+    const updateViewBox = () => {
+      if (window.innerWidth >= 1024) {
+        setViewBox("0 0 1300 600");
+      } else {
+        setViewBox("0 0 400 600");
+      }
+    };
+
+    updateViewBox();
+    window.addEventListener("resize", updateViewBox);
+
+    return () => window.removeEventListener("resize", updateViewBox);
+  }, []);
 
   useGSAP(() => {
-    const tl = gsap.timeline();
+    const onLoad = () => {
+      const tl = gsap.timeline();
 
-    tl.to(".vi-mask-group", {
-      rotate: 20,
-      duration: 2,
-      ease: "Power4.easeInOut",
-      transformOrigin: "50% 50%",
-    }).to(".vi-mask-group", {
-      scale: 20,
-      duration: 2,
-      delay: -1.8,
-      ease: "Expo.easeInOut",
-      transformOrigin: "50% 50%",
-      opacity: 0,
-      onUpdate: function () {
-        if (this.progress() >= 0.9) {
-          document.querySelector(".svg").remove();
-          setShowContent(true);
-          this.kill();
-        }
-      },
-    });
+      tl.to(".vi-mask-group", {
+        rotate: 20,
+        duration: 2,
+        ease: "Power4.easeInOut",
+        transformOrigin: "50% 50%",
+      }).to(".vi-mask-group", {
+        scale: 20,
+        duration: 2,
+        delay: -1.8,
+        ease: "Expo.easeInOut",
+        transformOrigin: "50% 50%",
+        opacity: 0,
+        onUpdate: function () {
+          if (this.progress() >= 0.9) {
+            document.querySelector(".svg")?.remove();
+            setShowContent(true);
+            this.kill();
+          }
+        },
+      });
+    };
+
+    window.addEventListener("load", onLoad);
+    return () => window.removeEventListener("load", onLoad);
   });
 
   useGSAP(() => {
@@ -62,7 +83,7 @@ const App = () => {
   return (
     <>
       <div className="svg flex items-center justify-center fixed top-0 left-0 z-[100] w-full h-screen overflow-hidden bg-black">
-        <svg viewBox="0 0 1200 600" preserveAspectRatio="xMidYMid slice">
+        <svg viewBox={viewBox} preserveAspectRatio="xMidYMid slice">
           <defs>
             <mask id="viMask">
               <rect width="100%" height="100%" fill="black" />
@@ -106,57 +127,83 @@ const App = () => {
             <div className="imgagesdiv relative w-full h-screen overflow-hidden">
               <img
                 src="./sky.png"
-                className=" sm:scale-[1.2] sky absolute top-0 left-0 w-full h-full object-cover"
+                className="scale-[1.2] sky absolute top-0 left-0 w-full h-full object-cover"
               />
               <img
                 src="./bg.png"
                 className=" scale-[1.2] bg absolute top-0 left-0 w-full h-full object-cover"
               />
-              <div className=" text flex flex-col gap-3 absolute top-10 left-1/2 -translate-x-1/2 ">
-                <h1 className="sm:text-8xl text-4xl leading-none -ml-10 sm:-ml-20">grand</h1>
-                <h1 className="sm:text-8xl text-4xl leading-none ml-10 sm:ml-20">theft</h1>
-                <h1 className="sm:text-8xl text-4xl leading-none -ml-10 sm:-ml-10">auto</h1>
+              <div className=" text flex  flex-col gap-3 absolute sm:top-10 top-20 left-1/2 -translate-x-1/2 ">
+                <h1 className="sm:text-8xl text-7xl leading-none -ml-5 sm:-ml-20">
+                  grand
+                </h1>
+                <h1 className="sm:text-8xl text-7xl leading-none ml-10 sm:ml-20">
+                  theft
+                </h1>
+                <h1 className="sm:text-8xl text-7xl leading-none -ml-5 sm:-ml-10">
+                  auto
+                </h1>
               </div>
               <img
                 src="./girlbg.png"
-                className=" girl absolute left-1/2 -translate-x-1/2 -bottom-[35%] scale-[.1] sm:scale-[1.25] w-full h-full object-contain"
+                className=" girl absolute left-1/2 -translate-x-1/2 -bottom-[35%] scale-[1.1] sm:scale-[1.25] w-full h-full object-contain"
               />
             </div>
             <div className="bottombar z-[4] flex items-baseline justify-center absolute bottom-0 py-15 left-0 w-full h-10 bg-gradient-to-t from-black to-transparent">
-              <div className="flex left-8 w-fit items-center absolute bottom-5 gap-1">
-                <i className="ri-arrow-down-long-line text-2xl text-zinc-200"></i>
-                <h3 className="font-[Manrope] text-zinc-200 ">Scroll down</h3>
+              <div className="sm:flex hidden  left-8 w-fit items-center absolute bottom-5 gap-1">
+                <i className="ri-arrow-down-long-line sm:text-2xl text-md text-zinc-200"></i>
+                <h3 className="font-[Manrope] text-zinc-200 text-sm">
+                  Scroll down
+                </h3>
               </div>
               <img src="./ps5.png" className="h-10 mb-3" />
             </div>
           </div>
-          <div className="about w-full h-screen flex items-center justify-between px-10">
-            <div className="limg w-1/2 ">
-              <img src="./public/imag.png" alt="Girl Image" />
+          <div className="about w-full min-h-screen flex sm:flex-row flex-col-reverse gap-20 sm:gap-0 items-center justify-between px-5 sm:px-10">
+            <div className="limg  w-full sm:w-1/2 ">
+              <img
+                className="scale-[1.3] sm:scale-[1]"
+                src="./public/imag.png"
+                alt="Girl Image"
+              />
             </div>
-            <div className="rg w-1/2 ">
-              <h1 className="text-6xl ">Stil Running,</h1>
-              <h1 className="text-6xl ">Not Hunting</h1>
-              <p className="text-lg leading-none font-[Arial] font-medium tracking-tight mt-5 pr-20">
+            <div className="rg sm:w-1/2 w-full">
+              <h1 className="text-6xl bg-gradient-to-t from-[#ffb574] via-pink-500 to-[#5460D3] bg-clip-text text-transparent">
+                Stil Running,
+              </h1>
+              <h1 className="text-6xl bg-gradient-to-t from-[#ffb574] via-pink-500 to-[#5460D3] bg-clip-text text-transparent">
+                Not Hunting
+              </h1>
+              <p className="text-lg leading-none font-[Arial] font-medium tracking-tight mt-14 sm:mt-5 sm:pr-20">
                 The game will feature a compelling narrative told through the
                 perspectives of a new criminal duo, Lucia and Jason. Expect a
                 satirical take on modern American culture, from social media
                 trends to influencer phenomena, all within the context of their
                 unfolding story.
               </p>
-              <p className="text-lg leading-none font-[Arial] font-medium tracking-tight mt-5 pr-20">
+              <p className="text-lg leading-none font-[Arial] font-medium tracking-tight mt-5 sm:pr-20">
                 Rockstar Games promises significant advancements in graphics,
                 physics, and AI, aiming to create an unprecedentedly realistic
                 and dynamic open world.{" "}
               </p>
-              <p className="text-lg leading-none font-[Arial] font-medium tracking-tight my-5 pr-20">
+              <p className="text-lg leading-none font-[Arial] font-medium tracking-tight my-5 sm:pr-20">
                 With its sprawling map, diverse environments, and a wealth of
                 interactive opportunities, Grand Theft Auto VI is poised to
                 redefine the open-world genre once again.
               </p>
-              <button className="px-8 py-3 bg-gradient-to-b text-xl cursor-pointer hover:bg-gradient-to-t from-[#D940A5] to-[#4962D3] hover:from-[#D940A5] hover:to-[#4962D3] duration-500">
+              <button className="sm:px-8 px-4 py-2 sm:py-3 bg-gradient-to-b text-md sm:text-xl cursor-pointer hover:bg-gradient-to-t from-[#D940A5] to-[#4962D3] hover:from-[#D940A5] hover:to-[#4962D3] duration-500">
                 Download Now
               </button>
+            </div>
+          </div>
+          <div className="footer bg-black flex items-center justify-center  w-full  py-5 sm:py-0 sm:min-h-[40vh] px-8">
+            <div className=" flex items-center sm:flex-row flex-col  gap-5">
+              <h1 className="sm:text-[9rem] hdden sm:block text-[2rem]  bg-gradient-to-t from-[#ffb574] via-pink-500 to-[#5460D3] bg-clip-text text-transparent">
+                Grand Theft Auto
+              </h1>
+              <div className="bg-re-500 sm:flex items-end w-30 h-27">
+                <img src="./public/GTAFoot.png" className="" />
+              </div>
             </div>
           </div>
         </div>
