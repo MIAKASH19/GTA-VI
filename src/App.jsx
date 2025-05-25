@@ -189,7 +189,7 @@ const App = () => {
             <div className="limg  w-full sm:w-1/2 ">
               <img
                 className="scale-[1.3] sm:scale-[1]"
-                src="./public/imag.png"
+                src="./imag.png"
                 alt="Girl Image"
               />
             </div>
@@ -228,7 +228,7 @@ const App = () => {
                 grand theft auto
               </h1>
               <div className="bg-re-500 sm:flex items-end w-30 h-27">
-                <img src="./public/GTAFoot.png" className="" />
+                <img src="./GTAFoot.png" className="" />
               </div>
             </div>
           </div>
