@@ -5,22 +5,6 @@ import "remixicon/fonts/remixicon.css";
 
 const App = () => {
   let [showContent, setShowContent] = useState(false);
-  const [viewBox, setViewBox] = useState("0 0 400 600");
-
-  useEffect(() => {
-    const updateViewBox = () => {
-      if (window.innerWidth >= 1024) {
-        setViewBox("0 0 1300 600");
-      } else {
-        setViewBox("0 0 400 600");
-      }
-    };
-
-    updateViewBox();
-    window.addEventListener("resize", updateViewBox);
-
-    return () => window.removeEventListener("resize", updateViewBox);
-  }, []);
 
   useGSAP(() => {
     const onLoad = () => {
@@ -53,6 +37,45 @@ const App = () => {
   });
 
   useGSAP(() => {
+    if (!showContent) return;
+
+    gsap.to(".main", {
+      scale: 1,
+      rotate: 0,
+      duration: 2,
+      delay: "-.8",
+      ease: "Expo.easeInOut",
+    });
+    gsap.to(".sky", {
+      scale: 1.2,
+      rotate: 0,
+      duration: 2,
+      delay: "-.4",
+      ease: "Expo.easeInOut",
+    });
+    gsap.to(".bg", {
+      scale: 1.2,
+      rotate: 0,
+      duration: 2,
+      delay: "-.4",
+      ease: "Expo.easeInOut",
+    });
+    gsap.to(".girl", {
+      scale: 1.1,
+      bottom: "-35%",
+      duration: 2,
+      delay: "-.4",
+      ease: "Expo.easeInOut",
+    });
+    gsap.to(".text", {
+      opacity: 1,
+      scale: 1,
+      rotate: 0,
+      duration: 1,
+      // delay: "-.8",
+      ease: "Expo.easeInOut",
+    });
+
     const main = document.querySelector(".main");
 
     main?.addEventListener("mousemove", function (e) {
@@ -83,7 +106,10 @@ const App = () => {
   return (
     <>
       <div className="svg flex items-center justify-center fixed top-0 left-0 z-[100] w-full h-screen overflow-hidden bg-black">
-        <svg viewBox={viewBox} preserveAspectRatio="xMidYMid slice">
+        <svg
+          viewBox={`0 0 ${window.innerWidth} ${window.innerHeight}`}
+          preserveAspectRatio="xMidYMid slice"
+        >
           <defs>
             <mask id="viMask">
               <rect width="100%" height="100%" fill="black" />
@@ -103,7 +129,7 @@ const App = () => {
             </mask>
           </defs>
           <image
-            href="./Gta.png"
+            href="./City.png"
             width="100%"
             height="100%"
             preserveAspectRatio="xMidYMid slice"
@@ -112,8 +138,8 @@ const App = () => {
         </svg>
       </div>
       {showContent && (
-        <div className="main bg-black w-full h-full text-white overflow-hidden">
-          <div className="landing w-full h-[110vh] bg-black">
+        <div className="main relative rotate-[-10deg] scale-[1.8] bg-black w-full text-white overflow-hidden">
+          <div className="landing overflow-hidden relative w-full h-[110vh] bg-black">
             <div className="navbar px-5 sm:px-7 py-5 fixed top-0 left-0 w-full z-[10]">
               <div className="logo  flex items-center gap-4">
                 <div className="lines flex flex-col sm:gap-[5px] gap-1">
@@ -127,13 +153,13 @@ const App = () => {
             <div className="imgagesdiv relative w-full h-screen overflow-hidden">
               <img
                 src="./sky.png"
-                className="scale-[1.2] sky absolute top-0 left-0 w-full h-full object-cover"
+                className="scale-[1.7] rotate-[-3deg] sky absolute top-0 left-0 w-full h-full object-cover"
               />
               <img
                 src="./bg.png"
-                className=" scale-[1.2] bg absolute top-0 left-0 w-full h-full object-cover"
+                className=" scale-[1.7] rotate-[-3deg] bg absolute top-0 left-0 w-full h-full object-cover"
               />
-              <div className=" text flex  flex-col gap-3 absolute sm:top-10 top-20 left-1/2 -translate-x-1/2 ">
+              <div className="text flex  flex-col gap-3 absolute sm:top-10 top-20 rotate-[-20deg] opacity-0 left-1/2 -translate-x-1/2 ">
                 <h1 className="sm:text-8xl text-7xl leading-none -ml-5 sm:-ml-20">
                   grand
                 </h1>
@@ -146,10 +172,10 @@ const App = () => {
               </div>
               <img
                 src="./girlbg.png"
-                className=" girl absolute left-1/2 -translate-x-1/2 -bottom-[35%] scale-[1.1] sm:scale-[1.25] w-full h-full object-contain"
+                className="girl absolute left-1/2 -translate-x-1/2 -bottom-[150%] scale-[2] sm:scale-[1.25] w-full h-full object-contain"
               />
             </div>
-            <div className="bottombar z-[4] flex items-baseline justify-center absolute bottom-0 py-15 left-0 w-full h-10 bg-gradient-to-t from-black to-transparent">
+            <div className="bottombar z-[5]  flex items-baseline justify-center absolute bottom-16  py-15 left-0 w-full h-10 bg-gradient-to-t from-black to-transparent">
               <div className="sm:flex hidden  left-8 w-fit items-center absolute bottom-5 gap-1">
                 <i className="ri-arrow-down-long-line sm:text-2xl text-md text-zinc-200"></i>
                 <h3 className="font-[Manrope] text-zinc-200 text-sm">
@@ -199,7 +225,7 @@ const App = () => {
           <div className="footer bg-black flex items-center justify-center  w-full  py-5 sm:py-0 sm:min-h-[40vh] px-8">
             <div className=" flex items-center sm:flex-row flex-col  gap-5">
               <h1 className="sm:text-[9rem] hdden sm:block text-[2rem]  bg-gradient-to-t from-[#ffb574] via-pink-500 to-[#5460D3] bg-clip-text text-transparent">
-                Grand Theft Auto
+                grand theft auto
               </h1>
               <div className="bg-re-500 sm:flex items-end w-30 h-27">
                 <img src="./public/GTAFoot.png" className="" />
